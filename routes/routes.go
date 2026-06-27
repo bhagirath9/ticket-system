@@ -16,6 +16,15 @@ func SetupRouter(cfg *config.Config, authCtrl *controllers.AuthController, ticke
 	// Apply Gin default recovery middleware to recover from any panics gracefully
 	r.Use(gin.Recovery())
 
+	// Root endpoint
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Welcome to Ticket System",
+			"version": "1.0.0",
+			"status":  "running",
+		})
+	})
+
 	// Health check endpoint (Public)
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
